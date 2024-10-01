@@ -1,14 +1,17 @@
-version: 0.2
-phases:
-  install:
-    commands:
-      - echo Installing dependencies
-      - npm install
-  build:
-    commands:
-      - echo Build started on `date`
-      - npm run build  # Change this if your build command is different
-artifacts:
-  files:
-    - '**/*'
-  base-directory: build  # Update this based on where your build outputs go
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install
+    build:
+      commands:
+        - npm run build && npm run export
+  artifacts:
+    baseDirectory: out  # Assuming you're exporting static files to the 'out' directory
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+
